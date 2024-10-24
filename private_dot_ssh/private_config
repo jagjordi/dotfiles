@@ -1,0 +1,35 @@
+Host unraid
+    HostName 192.168.1.181
+    User root
+Host cheddar
+    HostName cheddar.ict.kth.se
+    User jordi
+    ForwardX11 yes
+Host mozzarella 
+    HostName mozzarella.ict.kth.se
+    User jordi
+    ForwardX11 yes
+Host dmozzarella 
+    HostName dongle-mozzarella.ict.kth.se
+    User jordi
+    ForwardX11 yes
+Host manchego
+    HostName manchego.eecs.kth.se
+    User root
+    ForwardX11 yes
+Host feta
+    HostName feta.eecs.kth.se
+    User root
+    ForwardX11 yes
+Host cloud-admin
+    HostName feta.eecs.kth.se
+    User root
+    ForwardX11 yes
+    Port 45000
+    LocalForward 5910 localhost:5901
+Host cloud-redhat
+    HostName manchego.eecs.kth.se
+    User jordi
+    ForwardX11 yes
+    Port 32768
+    LocalForward 5911 localhost:5901
