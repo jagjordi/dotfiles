@@ -1,0 +1,69 @@
+#!/bin/zsh
+#
+# .aliases - Set whatever shell aliases you want.
+#
+
+alias :q=exit
+alias :wq=exit
+
+# single character aliases - be sparing!
+alias _=sudo
+alias g=git
+
+# mask built-ins with better defaults
+alias vi=nvim
+alias n=nvim
+alias vim=nvim 
+alias v=nvim
+
+# git aliases
+alias gst='git status'
+alias gco='git checkout'
+alias gcm='git commit -m'
+alias gca='git commit --amend'
+alias gcb='git checkout -b'
+alias gpl='git pull'
+alias gp='git push'
+alias ga='git add'
+alias gf='git fetch'
+alias gc='git commit'
+
+# more ways to ls
+alias l='ls -al'
+alias la='ls -lAh'
+alias ldot='ls -ld .*'
+
+# fix common typos
+alias quit='exit'
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias .......='cd ../../../../..'
+
+# tar
+alias tarls="tar -tvf"
+alias untar="tar -xf"
+
+# rsync
+alias rsync='rsync -avh --info=progress2'
+
+# find
+alias fd='find . -type d -iname'
+alias ff='find . -type f -iname'
+
+# url encode/decode
+alias urldecode='python3 -c "import sys, urllib.parse as ul; \
+    print(ul.unquote_plus(sys.argv[1]))"'
+alias urlencode='python3 -c "import sys, urllib.parse as ul; \
+    print (ul.quote_plus(sys.argv[1]))"'
+
+# misc
+alias please=sudo
+alias rc='${EDITOR:-nvim} "${ZDOTDIR:-$HOME}"/.zshrc'
+alias zbench='for i in {1..10}; do /usr/bin/time zsh -lic exit; done'
+alias zdot='cd ${ZDOTDIR:-~}'
+
+

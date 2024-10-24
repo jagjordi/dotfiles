@@ -1,0 +1,1 @@
+zvm_after_init_commands+=("bindkey '^[[A' up-line-or-search" "bindkey '^[[B' down-line-or-search" "bindkey -a 'k' up-line-or-search" "bindkey -a 'j' down-line-or-search")

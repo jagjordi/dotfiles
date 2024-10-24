@@ -1,0 +1,29 @@
+GIMP Palette
+Name: KTH
+Columns: 3
+#
+255	255	255	White 100
+235	229	224	Sand 100
+0	71	145	KTH_Blue 100
+98	152	210	Sky_Blue 100
+0	0	97	Navy 100
+222	240	255	Light_Blue 100
+0	41	237	Digital_Blue 100
+33  33  33  Broken_Black 100
+252 252 252 Broken_White 100
+13	74	33	Dark_Green 100
+77	160	97	Green 100
+199	235	186	Light_Green 100
+28	67	76	Dark_Turquoise 100
+51	156	156	Turquoise 100
+178	224	224	Light_Turquoise 100
+120	0	26	Dark_Brick 100
+232	106	88	Brick 100
+255	204	196	Light_Brick 100
+166	89	0	Dark_Yellow 100
+255	190	0	Yellow 100
+255	240	176	Light_Yellow 100
+50	50	50	Dark_Grey 100
+165	165	165	Grey 100
+230	230	230	Light_Grey 100
+

@@ -1,0 +1,116 @@
+#!/bin/zsh
+#
+# .zsh_plugins.txt - antidote plugins file
+#
+
+mattmc3/zephyr path:plugins/completion
+
+zsh-users/zsh-completions path:src kind:fpath
+
+peterhurford/up.zsh
+rummik/zsh-tailf
+mattmc3/zman
+agkozak/zsh-z
+
+# Use kind:fpath for prompts you want available to promptinit.
+romkatv/powerlevel10k kind:fpath
+
+# Or, just load a prompt plugin the normal way.
+sindresorhus/pure
+
+romkatv/zsh-bench kind:path
+
+
+
+
+### Frameworks
+#
+# Frameworks are a collection of Zsh features, settings, and plugins meant to ease
+# Zsh configuration. Unfortunately, all that power can come with serious drawbacks.
+# Frameworks can often set more settings or aliases than you need, cluttering your Zsh
+# config and slowing things down. Use with caution!
+#
+# Frameworks are handled in antidote using the `path:location/of/plugin` annotation.
+#
+###
+
+### Framework: Oh-My-Zsh
+#
+# Oh-My-Zsh is a very popular Zsh framework. You might choose to use plugins from OMZ
+# in your own config. Depending on which plugins you use, you may also need to include
+# OMZ's entire "lib" directory. If you do this, be careful - "lib" configures a lot of
+# very broad settings. If you are familiar with what you are doing, you may choose to
+# only include parts of "lib".
+#
+#   # use all of lib
+#   ohmyzsh/ohmyzsh path:lib
+#   # -OR-, only use only the specific files we care about
+#   ohmyzsh/ohmyzsh path:lib/clipboard.zsh
+#
+####
+ohmyzsh/ohmyzsh path:lib/clipboard.zsh
+ohmyzsh/ohmyzsh path:plugins/copybuffer
+ohmyzsh/ohmyzsh path:plugins/copyfile
+ohmyzsh/ohmyzsh path:plugins/copypath
+ohmyzsh/ohmyzsh path:plugins/extract
+ohmyzsh/ohmyzsh path:plugins/magic-enter
+ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
+
+
+### Framework: Prezto
+#
+# Prezto is another popular Zsh framework. You might choose to use parts of it in your
+# config alongside/instead of OMZ. Prezto has some key differences from OMZ. For
+# starters, it doesn't have a lib directory and it calls its plugins 'modules'. Its
+# modules also often have functions directories that need autoloaded. And, because it's
+# meant to be used as an integrated framework, Prezto modules don't operate well as
+# cherry-picking independent plugins, so using Prezto with antidote is not recommended
+# for anyone but the most advanced Zsh users.
+#
+###
+
+# Prezto can be difficult to assemble because it's so interdependent.
+# Use at your own risk.
+# sorin-ionescu/prezto path:modules/helper/functions kind:autoload
+# sorin-ionescu/prezto path:modules/helper
+# sorin-ionescu/prezto path:modules/environment
+# sorin-ionescu/prezto path:modules/terminal
+# sorin-ionescu/prezto path:modules/editor
+# sorin-ionescu/prezto path:modules/directory
+# sorin-ionescu/prezto path:modules/git/functions kind:autoload
+# sorin-ionescu/prezto path:modules/git
+
+# And Prezto has tons more...
+# sorin-ionescu/prezto path:modules/history
+# sorin-ionescu/prezto path:modules/spectrum
+# sorin-ionescu/prezto path:modules/utility/functions kind:autoload
+# sorin-ionescu/prezto path:modules/utility
+# sorin-ionescu/prezto path:modules/completion
+# sorin-ionescu/prezto path:modules/history-substring-search
+# sorin-ionescu/prezto path:modules/prompt/functions kind:autoload
+# sorin-ionescu/prezto path:modules/prompt
+# sorin-ionescu/prezto path:modules/python
+# sorin-ionescu/prezto path:modules/python/functions kind:autoload
+# sorin-ionescu/prezto path:modules/osx conditional:ismacos
+# sorin-ionescu/prezto path:modules/osx/functions kind:autoload conditional:ismacos
+
+
+belak/zsh-utils path:history
+belak/zsh-utils path:utility
+belak/zsh-utils path:editor
+
+# Syntax highlighting
+#zsh-users/zsh-syntax-highlighting kind:defer
+zdharma-continuum/fast-syntax-highlighting kind:defer
+
+# Local plugins
+$ZDOTDIR/.aliases
+$ZDOTDIR/.binds
+$ZDOTDIR/.functions
+
+jeffreytse/zsh-vi-mode
+
+#$ZDOTDIR/custom/plugins/example
+# These popular core plugins should be loaded at the end
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-history-substring-search

@@ -1,0 +1,264 @@
+monitor=eDP-1,2256x1504,2560x0,1
+
+exec-once = swaync
+exec-once = ${HOME}/.config/hypr/start-waybar.sh
+exec-once = hyprpaper
+exec-once = hyprpm reload -n
+
+# lock screen after 5 minutes
+exec-once = swayidle -w timeout 300 'swaylock -f -i  ~/.config/wallpapers/wallpaper.png' timeout 310 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on'
+exec-once = wl-paste --type text --watch cliphist store
+exec-once = wl-paste --type image --watch cliphist store
+
+bindl =  ,switch:on:Lid Switch,exec, hyprctl keyword monitor "eDP-1, disable"
+bindl =  ,switch:off:Lid Switch,exec, hyprctl keyword monitor "eDP-1,2256x1504,2560x0,1"
+
+$terminal = kitty
+$fileManager = ranger
+$menu = wofi --show drun
+
+env = XCURSOR_SIZE,24
+env = QT_QPA_PLATFORMTHEME,qt5ct # change to qt6ct if you have that
+env = XDG_CURRENT_DESKTOP,sway
+
+# For all categories, see https://wiki.hyprland.org/Configuring/Variables/
+input {
+    kb_layout = us,us
+    kb_variant = basic,intl
+    kb_model = pc105,pc105
+    kb_options = grp:alt_shift_toggle
+
+    follow_mouse = 1
+
+    touchpad {
+        natural_scroll = yes
+    }
+
+    sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+}
+
+general {
+    # See https://wiki.hyprland.org/Configuring/Variables/ for more
+
+    gaps_in = 5 10 15 20
+    gaps_out = 10,10,0,10
+    border_size = 2
+    # black border
+    col.active_border = rgba(000000ff)
+    col.inactive_border = rgba(595959aa)
+
+    layout = hy3
+
+    # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
+    allow_tearing = false
+}
+
+decoration {
+    # See https://wiki.hyprland.org/Configuring/Variables/ for more
+
+    rounding = 0
+    
+    blur {
+        enabled = true
+        size = 3
+        passes = 1
+    }
+
+    drop_shadow = yes
+    shadow_range = 4
+    shadow_render_power = 3
+    col.shadow = rgba(00000000)
+}
+
+animations {
+    enabled = yes
+
+    # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
+
+    bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+
+    animation = windows, 1, 7, myBezier
+    animation = windowsOut, 1, 7, default, popin 80%
+    animation = border, 1, 10, default
+    animation = borderangle, 1, 8, default
+    animation = fade, 1, 7, default
+    animation = workspaces, 1, 6, default
+}
+
+dwindle {
+    # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
+    pseudotile = yes # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+    preserve_split = yes # you probably want this
+}
+
+gestures {
+    # See https://wiki.hyprland.org/Configuring/Variables/ for more
+    workspace_swipe = off
+}
+
+misc {
+    # See https://wiki.hyprland.org/Configuring/Variables/ for more
+    force_default_wallpaper = 0 # Set to 0 or 1 to disable the anime mascot wallpapers
+}
+
+# Example per-device config
+# See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
+#device:epic-mouse-v1 {
+#    sensitivity = -0.5
+#}
+
+# Example windowrule v1
+# windowrule = float, ^(kitty)$
+# Example windowrule v2
+# windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
+# See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
+#windowrulev2 = nomaximizerequest, class:.* # You'll probably like this.
+windowrulev2 = float, class:floating
+windowrulev2 = float, class:pavucontrol
+
+# See https://wiki.hyprland.org/Configuring/Keywords/ for more
+$mainMod = SUPER
+
+# Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
+bind = $mainMod, return, exec, kitty 
+bind = $mainMod SHIFT, return, exec, kitty --class floating
+bind = $mainMod SHIFT, Q, killactive, 
+bind = $mainMod, F, exec, kitty --class floating -- ranger
+bind = $mainMod, D, exec, rofi -show-icons -terminal kitty -modi 'drun##combi##WireGuard:~/.config/rofi/wireguard-rofi.sh' -show drun
+bind = $mainMod, E, exec, kitty -- nvim
+bind = $mainMod SHIFT, E, exec, kitty --class floating -- nvim
+bind = $mainMod, P, pseudo, # dwindle
+bind = $mainMod, C, exec, rofi -show calc -modi calc -no-show-match -no-sort
+bind = $mainMod SHIFT, C, exec, kitty --class floating -- ipython -i -c "from math import *" 
+bind = $mainMod, S, exec, kitty ncspot #--class floating -- ncspospotify_playespotify_playerrt
+bind = $mainMod, F11, exec, IMG=~/Pictures/Screenshots/Screenshot_$(date +%Y%m%d-%H%M%S).png; grim -g "$(slurp)" $IMG && wl-copy < $IMG
+bind = $mainMod SHIFT, F11, exec,  grim -g "$(slurp)" - | swappy -f -
+bind = $mainMod, Print, exec, IMG=~/Pictures/Screenshots/Screenshot_$(date +%Y%m%d-%H%M%S).png; grim -g "$(slurp)" $IMG && wl-copy < $IMG
+bind = $mainMod SHIFT, Print, exec,  grim -g "$(slurp)" - | swappy -f -
+bind = , Print, exec,  grim -g "$(slurp)" - | swappy -f -
+bind = $mainMod SHIFT, V, exec, rofi -modi clipboard:~/.config/rofi/cliphist-rofi-img -show clipboard
+bind = $mainMod SHIFT, W, exec, rofi -modi 'WireGuard:~/.config/rofi/wireguard-rofi.sh' -show WireGuard
+bind = $mainMod SHIFT, N, exec, sh ~/.config/rofi/network-manager/rofi-network-manager.sh
+bind = $mainMod SHIFT, D, exec, swaync-client -t -sw
+
+
+bind = $mainMod SHIFT, space, togglefloating, 
+
+bind = $mainMod, W, submap, group
+submap = group
+bind = $mainMod, W, togglegroup
+bind = $mainMod, W, submap, reset
+bind = $mainMod SHIFT, H, moveintogroup, l 
+bind = $mainMod SHIFT, H, submap, reset
+bind = $mainMod SHIFT, L, moveintogroup, r
+bind = $mainMod SHIFT, L, submap, reset
+bind = $mainMod SHIFT, K, moveintogroup, u
+bind = $mainMod SHIFT, K, submap, reset
+bind = $mainMod SHIFT, J, moveintogroup, d 
+bind = $mainMod SHIFT, J, submap, reset
+submap = reset
+
+# media controls
+bind = $mainMod, F5, exec, playerctl --player=ncspot play-pause
+bind = $mainMod SHIFT, p, exec, playerctl --player=ncspot play-pause
+bind = $mainMod, F6, exec, playerctl --player=ncspot next
+bind = $mainMod SHIFT, l, exec, playerctl --player=ncspot next
+bind = $mainMod, F4, exec, playerctl --player=ncspot previous
+bind = $mainMod SHIFT, h, exec, playerctl --player=ncspot previous
+bind = $mainMod, F3, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%
+bind = $mainMod SHIFT, k, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%
+bind = $mainMod, F2, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
+bind = $mainMod SHIFT, j, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
+bind = $mainMod, F1, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle
+bind = ,XF86AudioPlay, exec, playerctl --player=ncspot play-pause
+bind = ,XF86AudioNext, exec, playerctl --player=ncspot next
+bind = ,XF86AudioPrev, exec, playerctl --player=ncspot previous
+bind = ,XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%
+bind = ,XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
+bind = ,XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+
+# brighness controls
+bind = $mainMod, F7, exec, brightnessctl set 5%-
+bind = $mainMod SHIFT, F7, exec, brightnessctl set 1%-
+bind = $mainMod, F8, exec, brightnessctl set 5%+
+bind = $mainMod SHIFT, F8, exec, brightnessctl set 1%+
+
+
+
+workspace = 1,name:email,monitor:DP-2
+workspace = 2,name:web,monitor:DP-1
+workspace = 3,name:code,monitor:DP-1
+workspace = 4,name:office,monitor:DP-1
+workspace = 5,name:media,monitor:DP-1
+
+# Move focus with mainMod + arrow keys
+bind = $mainMod, left,  hy3:movefocus, l
+bind = $mainMod, right, hy3:movefocus, r
+bind = $mainMod, up,    hy3:movefocus, u
+bind = $mainMod, down,  hy3:movefocus, d
+bind = $mainMod, h, hy3:movefocus, l
+bind = $mainMod, l, hy3:movefocus, r
+bind = $mainMod, k, hy3:movefocus, u
+bind = $mainMod, j, hy3:movefocus, d
+bind = $mainMod SHIFT, left,  hy3:movewindow, l
+bind = $mainMod SHIFT, right, hy3:movewindow, r
+bind = $mainMod SHIFT, up,    hy3:movewindow, u
+bind = $mainMod SHIFT, down,  hy3:movewindow, d
+bind = $mainMod SHIFT, h, hy3:movewindow, l
+bind = $mainMod SHIFT, l, hy3:movewindow, r
+bind = $mainMod SHIFT, k, hy3:movewindow, u
+bind = $mainMod SHIFT, j, hy3:movewindow, d
+bind = $mainMod, tab, changegroupactive,
+
+# Switch workspaces with mainMod + [0-9]
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+bind = $mainMod, 6, workspace, 6
+bind = $mainMod, 7, workspace, 7
+bind = $mainMod, 8, workspace, 8
+bind = $mainMod, 9, workspace, 9
+bind = $mainMod, 0, workspace, 10
+
+# Move active window to a workspace with mainMod + SHIFT + [0-9]
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+bind = $mainMod SHIFT, 6, movetoworkspace, 6
+bind = $mainMod SHIFT, 7, movetoworkspace, 7
+bind = $mainMod SHIFT, 8, movetoworkspace, 8
+bind = $mainMod SHIFT, 9, movetoworkspace, 9
+bind = $mainMod SHIFT, 0, movetoworkspace, 10
+
+# Example special workspace (scratchpad)
+# bind = $mainMod, S, togglespecialworkspace, magic
+# bind = $mainMod SHIFT, S, movetoworkspace, special:magic
+
+# Scroll through existing workspaces with mainMod + scroll
+bind = $mainMod, mouse_down, workspace, e+1
+bind = $mainMod, mouse_up, workspace, e-1
+
+# Move/resize windows with mainMod + LMB/RMB and dragging
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
+
+bind = $mainMod SHIFT, r, exec, hyprctl reload
+bind = $mainMod SHIFT, z, exec, swaylock -i ~/.config/wallpapers/wallpaper.png
+bind = $mainMod SHIFT, x, submap, login
+
+submap=login 
+
+bind = ,l, exit
+bind = ,z, exec, hyprctl dispatch submap reset && swaylock -i ~/.config/wallpapers/wallpaper.png
+bind = ,r, exec, systemctl reboot
+bind = ,s, exec, hyprctl dispatch submap reset &&  systemctl suspend
+bind = ,h, exec, hyprctl dispatch submap reset &&  systemctl hibernate
+bind = SHIFT, s, exec, systemctl poweroff
+bind = ,escape, submap, reset
+
+submap=reset

@@ -1,0 +1,10 @@
+mkcd() { mkdir -p "$@" && cd "$@"; }
+function vpnstart() {
+    gpg --decrypt -a ~/.vpn_pass.gpg 2>/dev/null | sudo openconnect \
+        --background \
+        --pid-file="$HOME/.openconnect.pid" \
+        --user=$VPNUSER \
+        --servercert=sha256:1a341debc187f588029878f6d884182f41a92013e9297b8eaa6dce88b797e65d \
+        --authgroup=$AUTHGROUP $VPNHOST \
+        --passwd-on-stdin
+}

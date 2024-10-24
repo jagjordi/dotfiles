@@ -1,0 +1,37 @@
+GIMP Palette
+Name: SiLago palette
+Columns: 3
+#
+0 0 0 black
+128 128 128 black
+255 255 255 white
+
+40 127 70 green 100
+57 180 100 green 80
+#99 206 136 green 60
+151 222 176 green 40
+#203 239 215 green 20
+
+195 41 29 red 100
+225 67 56 red 80
+#233 144 106 red 60
+240 161 156 red 40
+#248 208 205 red 20
+
+240 202 51 yellow 100
+243 213 92 yellow 80
+#246 223 133 yellow 60
+249 234 173 yellow 40
+#252 244 214 yellow 20
+
+75 106 201 blue 100
+110 136 212 blue 80
+#147 166 223 blue 60
+183 195 233 blue 40
+#219 225 244 blue 20
+
+161 161 161 gray 100
+180 180 180 gray 80
+#198 198 198 gray 60
+217 217 217 gray 40
+#236 236 236 gray 20
