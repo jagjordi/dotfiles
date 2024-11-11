@@ -1,0 +1,3 @@
+#%Module
+
+prepend-path LM_LICENSE_FILE 1717@lic06.ug.kth.se
