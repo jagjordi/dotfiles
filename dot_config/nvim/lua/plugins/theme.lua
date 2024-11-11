@@ -24,5 +24,11 @@ return {
         event = "VimEnter",
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = { signs = false },
+    },
+
+    {
+        "theRealCarneiro/hyprland-vim-syntax",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        ft = "hypr",
     }
 }

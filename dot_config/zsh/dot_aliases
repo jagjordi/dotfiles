@@ -17,6 +17,7 @@ alias vim=nvim
 alias v=nvim
 
 # git aliases
+alias lg=lazygit
 alias gst='git status'
 alias gco='git checkout'
 alias gcm='git commit -m'

@@ -1,8 +1,24 @@
-@theme "~/.config/rofi/nord.rasi"
+configuration{
+    modi: "run,drun,window";
+    icon-theme: "Oranchelo";
+    show-icons: true;
+    terminal: "kitty";
+    drun-display-format: "{icon} {name}";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    display-drun: "   Apps ";
+    display-run: "   Run ";
+    display-window: " 󰕰  Window";
+    display-Network: " 󰤨  Network";
+    display-ssh: "󰢹 SSH";
+    sidebar-mode: true;
 
-configuration {
     kb-accept-entry:  'Return';
     kb-remove-to-eol: 'Control+Shift+l';
     kb-row-down: 'Control+j';
     kb-row-up:   'Control+k';
 }
+
+@theme "~/.config/rofi/catppuccin-latte.rasi"
+

@@ -10,11 +10,6 @@ setopt extended_glob
 ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
 fpath=($ZFUNCDIR $fpath)
 autoload -Uz $fpath[1]/*(.:t)
- 
-PATH=/opt/intelFPGA/20.1/modelsim_ase/bin:${PATH}
-PATH=~/Xilinx/Vivado/2024.1/bin:${PATH}
-
-export PATH
 
 # Source zstyles you might use with antidote.
 [[ -e ${ZDOTDIR:-~}/.zstyles ]] && source ${ZDOTDIR:-~}/.zstyles
