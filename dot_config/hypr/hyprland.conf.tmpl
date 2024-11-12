@@ -1,7 +1,9 @@
-
+{{- if eq .machine_name "framework" }}
+monitor=eDP-1,2256x1504,2560x0,1
+{{ else if eq .machine_name "office_desktop" }}
 monitor=DP-1,2560x1440,2560x0,1
 monitor=DP-2,2560x1440,0x0,1
-
+{{ end }}
 
 exec-once = swaync
 exec-once = hyprpaper
@@ -11,6 +13,11 @@ exec-once = hyprpm reload
 
 exec-once = wl-paste --type text --watch cliphist store
 exec-once = wl-paste --type image --watch cliphist store
+
+{{- if eq .machine_name "framework" }}
+bindl =  ,switch:on:Lid Switch,exec, hyprctl keyword monitor "eDP-1, disable"
+bindl =  ,switch:off:Lid Switch,exec, hyprctl keyword monitor "eDP-1,2256x1504,2560x0,1"
+{{ end }}
 
 $terminal = kitty
 $fileManager = ranger
@@ -147,20 +154,19 @@ bind = $mainMod, space, hy3:togglefocuslayer
 bind = $mainMod SHIFT, T, hy3:changegroup, toggletab
 bindn = , mouse:272, hy3:focustab, mouse
 
-# bind = $mainMod, W, submap, group
-# submap = group
-# bind = $mainMod, W, hy3:changegroup, toggletab
-# bind = $mainMod, W, submap, reset
-# bind = $mainMod SHIFT, H, moveintogroup, l 
-# bind = $mainMod SHIFT, H, submap, reset
-# bind = $mainMod SHIFT, L, moveintogroup, r
-# bind = $mainMod SHIFT, L, submap, reset
-# bind = $mainMod SHIFT, K, moveintogroup, u
-# bind = $mainMod SHIFT, K, submap, reset
-# bind = $mainMod SHIFT, J, moveintogroup, d 
-# bind = $mainMod SHIFT, J, submap, reset
-# bind = $mainMod, escape, submap, reset
-# submap = reset
+bind = $mainMod, W, submap, group
+submap = group
+bind = $mainMod, W, hy3:changegroup, toggletab
+bind = $mainMod SHIFT, H, moveintogroup, l 
+bind = $mainMod SHIFT, H, submap, reset
+bind = $mainMod SHIFT, L, moveintogroup, r
+bind = $mainMod SHIFT, L, submap, reset
+bind = $mainMod SHIFT, K, moveintogroup, u
+bind = $mainMod SHIFT, K, submap, reset
+bind = $mainMod SHIFT, J, moveintogroup, d 
+bind = $mainMod SHIFT, J, submap, reset
+bind = $mainMod, escape, submap, reset
+submap = reset
 
 # media controls
 bind = $mainMod, F5, exec, playerctl --player=ncspot play-pause
@@ -253,9 +259,9 @@ bindm = $mainMod, mouse:273, resizewindow
 
 bind = $mainMod SHIFT, r, exec, hyprctl reload
 bind = $mainMod SHIFT, z, exec, hyprlock
-bind = $mainMod SHIFT, x, submap, [s]uspend [S]hutdown [r]eboot [l]ogout
+bind = $mainMod SHIFT, x, submap, login
 
-submap=[s]uspend [S]hutdown [r]eboot [l]ogout
+submap=login 
 
 bind = ,l, exit
 bind = ,z, exec, hyprctl dispatch submap reset && swaylock -i ~/.config/wallpapers/wallpaper.png
