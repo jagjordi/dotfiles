@@ -61,6 +61,16 @@ alias urldecode='python3 -c "import sys, urllib.parse as ul; \
 alias urlencode='python3 -c "import sys, urllib.parse as ul; \
     print (ul.quote_plus(sys.argv[1]))"'
 
+# chezmoi
+alias ch='chezmoi'
+alias chd='chezmoi diff'
+alias chs='chezmoi status'
+alias chup='chezmoi update'
+alias cha='chezmoi apply'
+alias chc='chezmoi cd'
+alias chv='chezmoi edit'
+alias chva='chezmoi edit --apply'
+
 # misc
 alias please=sudo
 alias rc='${EDITOR:-nvim} "${ZDOTDIR:-$HOME}"/.zshrc'
