@@ -6,7 +6,7 @@
     // "width": 1280, // Waybar width
     // Choose the order of the modules
     "modules-left": ["hyprland/workspaces", "custom/pacman", "custom/email", "custom/spotify", "hyprland/submap"],
-    "modules-center": ["clock", "custom/weather"],
+    "modules-center": ["clock", "custom/weather", "custom/pomodoro"],
     "modules-right": ["pulseaudio", "custom/mem", "backlight", "battery"],
 
 
@@ -173,4 +173,14 @@
         "icon-size": 16,
         "spacing": 0
     },
+
+    "custom/pomodoro": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "$HOME/.local/bin/waybar-module-pomodoro",
+        "tooltip": true,
+        "on-click": "$HOME/.local/bin/waybar-module-pomodoro toggle",
+        "on-right-click": "$HOME/.local/bin/waybar-module-pomodoro reset"
+    },
+    
 }
