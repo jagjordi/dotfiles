@@ -33,3 +33,7 @@ Host cloud-redhat
     ForwardX11 yes
     Port 32768
     LocalForward 5911 localhost:5901
+Host office
+    HostName s2746.ict.kth.se
+    User jordi
+
