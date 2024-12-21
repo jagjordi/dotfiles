@@ -52,8 +52,8 @@ alias untar="tar -xf"
 alias rsync='rsync -avh --info=progress2'
 
 # find
-alias fd='find . -type d -iname'
-alias ff='find . -type f -iname'
+# alias fd='find . -type d -iname'
+# alias ff='find . -type f -iname'
 
 # url encode/decode
 alias urldecode='python3 -c "import sys, urllib.parse as ul; \
@@ -76,5 +76,4 @@ alias please=sudo
 alias rc='${EDITOR:-nvim} "${ZDOTDIR:-$HOME}"/.zshrc'
 alias zbench='for i in {1..10}; do /usr/bin/time zsh -lic exit; done'
 alias zdot='cd ${ZDOTDIR:-~}'
-
-
+alias t=todo.sh
