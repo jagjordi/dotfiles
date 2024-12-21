@@ -11,6 +11,8 @@ exec-once = hypridle
 exec-once = waybar
 exec-once = hyprpm reload
 
+plugin = /usr/lib/libhy3.so
+
 exec-once = wl-paste --type text --watch cliphist store
 exec-once = wl-paste --type image --watch cliphist store
 
@@ -19,10 +21,7 @@ bindl =  ,switch:on:Lid Switch,exec, hyprctl keyword monitor "eDP-1, disable"
 bindl =  ,switch:off:Lid Switch,exec, hyprctl keyword monitor "eDP-1,2256x1504,2560x0,1"
 {{ end }}
 
-$terminal = kitty
-$fileManager = ranger
-$menu = wofi --show drun
-
+env = WLR_NO_HARDWARE_CURSORS,1
 env = XCURSOR_SIZE,24
 env = QT_QPA_PLATFORMTHEME,qt5ct # change to qt6ct if you have that
 # env = XDG_CURRENT_DESKTOP,sway
@@ -63,17 +62,16 @@ decoration {
     # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
     rounding = 0
-    
     blur {
         enabled = true
         size = 3
         passes = 1
     }
 
-    drop_shadow = yes
-    shadow_range = 4
-    shadow_render_power = 3
-    col.shadow = rgba(00000000)
+    # drop_shadow = yes
+    # shadow_range = 4
+    # shadow_render_power = 3
+    # col.shadow = rgba(00000000)
 }
 
 animations {
