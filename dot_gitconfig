@@ -1,0 +1,16 @@
+[user]
+	email = jordiag@kth.se
+	name = Jordi
+
+[credential "https://git.overleaf.com"]
+    username = jordiag@kth.se
+    helper = store
+[pull]
+	rebase = false
+[safe]
+	directory = /home/jordi/sshfs/feta/docker-images
+	directory = /home/jordi/sshfs/manchego/docker
+	directory = /home/jordi/sshfs/cloud-admin/ee/admin/docker
+[core]
+	excludesFile = ~/.gitignore
+	editor = nvim
