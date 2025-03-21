@@ -24,3 +24,5 @@ antidote load
 
 FZF_CTRL_T_COMMAND='fd --strip-cwd-prefix'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH=${HOME}/.cargo/bin:${PATH}
