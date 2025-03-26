@@ -34,6 +34,7 @@ return {
                     },
                 },
                 filetypes = {
+                    yaml = true,
                     markdown = true,
                     yaml = true,
                     help = false,
@@ -52,7 +53,7 @@ return {
     {
         {
             "CopilotC-Nvim/CopilotChat.nvim",
-            branch = "canary",
+            branch = "main",
             dependencies = {
                 { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
                 { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
