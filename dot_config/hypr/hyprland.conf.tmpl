@@ -9,9 +9,7 @@ exec-once = swaync
 exec-once = hyprpaper
 exec-once = hypridle
 exec-once = waybar
-exec-once = hyprpm reload
-
-plugin = /usr/lib/libhy3.so
+exec-once = hyprpm reload -n
 
 exec-once = wl-paste --type text --watch cliphist store
 exec-once = wl-paste --type image --watch cliphist store
@@ -118,7 +116,7 @@ misc {
 # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
 #windowrulev2 = nomaximizerequest, class:.* # You'll probably like this.
 windowrulev2 = float, class:floating
-windowrulev2 = float, class:pavucontrol
+windowrulev2 = float, class:com.saivert.pwvucontrol
 
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 $mainMod = SUPER
@@ -272,3 +270,6 @@ plugin {
 # vim: syntax=hypr
 # vim: ft=hypr
 
+debug {
+  disable_logs = false
+  }
