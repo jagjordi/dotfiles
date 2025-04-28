@@ -9,6 +9,7 @@ return{
         local configs = require("lspconfig.configs")
         local nlspsettings = require("nlspsettings")
         lspconfig.ltex.setup{}
+        -- lspconfig.texlab.setup{}
         lspconfig.svlangserver.setup {}
         -- lspconfig.verible.setup {}
 

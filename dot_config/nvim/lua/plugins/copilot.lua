@@ -36,6 +36,7 @@ return {
                 filetypes = {
                     yaml = true,
                     markdown = true,
+                    yaml = true,
                     help = false,
                     gitcommit = false,
                     gitrebase = false,
@@ -63,6 +64,24 @@ return {
             },
             -- See Commands section for default commands if you want to lazy load on them
         },
+    },
+    {
+      "jackMort/ChatGPT.nvim",
+      event = "VeryLazy",
+      config = function()
+        require("chatgpt").setup({
+          openai_params = {
+            model = "gpt-4o-mini",
+          },
+          api_key_cmd = "secret-tool lookup key openai_nvim",
+        })
+      end,
+      dependencies = {
+        "MunifTanjim/nui.nvim",
+        "nvim-lua/plenary.nvim",
+        "folke/trouble.nvim", -- optional
+        "nvim-telescope/telescope.nvim"
+      }
     }
 }
 
