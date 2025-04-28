@@ -15,6 +15,7 @@ alias vi=nvim
 alias n=nvim
 alias vim=nvim 
 alias v=nvim
+alias vl=vim -c 'e main.tex|tabnew|tcd parts'
 
 # git aliases
 alias lg=lazygit
