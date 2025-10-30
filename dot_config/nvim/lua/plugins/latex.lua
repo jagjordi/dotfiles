@@ -1,7 +1,7 @@
 return {
     "lervag/vimtex",
     config = function()
-        vim.g.vimtex_view_method = "zathura"
+        vim.g.vimtex_view_method = "sioyek"
         vim.g.vimtex_quickfix_mode = 0
         -- let g:vimtex_grammar_textidote = {
         --     \ 'jar': '/usr/local/bin/textidote.jar',
