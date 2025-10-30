@@ -82,6 +82,14 @@ return {
         "folke/trouble.nvim", -- optional
         "nvim-telescope/telescope.nvim"
       }
-    }
+    },
+    {
+      "olimorris/codecompanion.nvim",
+      opts = {},
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-treesitter/nvim-treesitter",
+      },
+    },
 }
 
