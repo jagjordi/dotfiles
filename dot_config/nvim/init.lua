@@ -100,6 +100,7 @@ require("lazy").setup("plugins")
 local Terminal  = require('toggleterm.terminal').Terminal
 local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float"})
 local ranger = Terminal:new({ cmd = "ranger", hidden = true, direction = "float"})
+local codex = Terminal:new({ cmd = "codex", hidden = true, direction = "float", float_opts = { border = "curved" , width = 120, col = 100}})
 
 function _lazygit_toggle()
     lazygit:toggle()
@@ -109,5 +110,13 @@ function _ranger_toggle()
     ranger:toggle()
 end
 
+function _codex_toggle()
+    codex:toggle()
+end
+
 vim.keymap.set("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true, desc = "Open [G]it"})
 vim.keymap.set("n", "<leader>tr", "<cmd>lua _ranger_toggle()<CR>", {noremap = true, silent = true, desc = "Open [R]anger"})
+vim.keymap.set("n", "<leader>tx", "<cmd>lua _codex_toggle()<CR>", {noremap = true, silent = true, desc = "Open Co[D]ex"})
+
+-- Spell checking
+require("aspell_pws").setup()

@@ -8,9 +8,12 @@ return {
         --     \ 'jar': '/usr/local/bin/textidote.jar',
         --     \ 'args': '--check en',
         --     \}
+        --     g:vimtex_view_forward_search_on_start
+        --     
+        vim.g.vimtex_view_forward_search_on_start = 1
         vim.g.vimtex_grammar_textidote = {
             jar = "/usr/local/bin/textidote.jar",
-            args = "--check en",
+            args = "--read-all"
         }
         vim.g.vimtex_compiler_latexmk = {
             options = {

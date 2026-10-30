@@ -1,11 +1,12 @@
 return {
   {
-    "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown", "Avante" },
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
-    opts = {},
+    -- Live markdown preview in the browser (:MarkdownPreview / :MarkdownPreviewStop / :MarkdownPreviewToggle)
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = "cd app && npm install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
   },
 }
