@@ -89,14 +89,12 @@ animations {
 
 dwindle {
     # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-    pseudotile = yes # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
     preserve_split = yes # you probably want this
 }
 
-gestures {
-    # See https://wiki.hyprland.org/Configuring/Variables/ for more
-    workspace_swipe = off
-}
+# Touchpad gestures use the `gesture` keyword since Hyprland 0.51.
+# Workspace swipe is intentionally not configured (was workspace_swipe = off).
+# To enable: gesture = 3, horizontal, workspace
 
 misc {
     # See https://wiki.hyprland.org/Configuring/Variables/ for more
@@ -109,15 +107,11 @@ misc {
 #    sensitivity = -0.5
 #}
 
-# Example windowrule v1
-# windowrule = float, ^(kitty)$
-# Example windowrule v2
-# windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
-# See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-#windowrulev2 = nomaximizerequest, class:.* # You'll probably like this.
-windowrulev2 = float, class:floating
-windowrulev2 = float, class:ddcui
-windowrulev2 = float, class:com.saivert.pwvucontrol
+# Window rules (new syntax since Hyprland 0.53): windowrule = match:<prop> <value>, <rule> <value>
+# See https://wiki.hypr.land/Configuring/Window-Rules/ for more
+windowrule = match:class ^(floating)$, float on
+windowrule = match:class ^(ddcui)$, float on
+windowrule = match:class ^(com\.saivert\.pwvucontrol)$, float on
 
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 $mainMod = SUPER

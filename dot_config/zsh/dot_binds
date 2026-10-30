@@ -1,1 +1,9 @@
-zvm_after_init_commands+=("bindkey '^[[A' up-line-or-search" "bindkey '^[[B' down-line-or-search" "bindkey -a 'k' up-line-or-search" "bindkey -a 'j' down-line-or-search")
+function zvm_after_lazy_keybindings() {
+  # Bindings for vi mode
+  bindkey -M vicmd 'k' history-substring-search-up
+  bindkey -M vicmd 'j' history-substring-search-down
+
+  # Bindings for emacs mode
+  bindkey -M viins '^[[A' history-substring-search-up
+  bindkey -M viins '^[[B' history-substring-search-down
+}

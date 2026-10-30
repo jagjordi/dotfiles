@@ -17,3 +17,12 @@ export MODULEPATH=${MODULEPATH}:~/.config/modules
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+# Sourced by every zsh (interactive, login, script, systemd user unit, cron),
+# unlike .zshrc which is interactive-only. PATH belongs here so that
+# `ssh host 'openclaw ...'` and non-interactive callers resolve it too.
+#
+# typeset -U keeps `path` deduplicated, so nested shells re-prepending
+# this entry cannot grow PATH without bound.
+typeset -U path PATH
+path=("$HOME/.npm-global/bin" $path)
+export PATH

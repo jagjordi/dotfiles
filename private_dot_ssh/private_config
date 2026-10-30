@@ -2,7 +2,7 @@ Host unraid
     HostName 192.168.1.181
     User root
 Host cheddar
-    HostName cheddar.ict.kth.se
+    HostName cheddar.eecs.kth.se
     User jordi
     ForwardX11 yes
 Host mozzarella 

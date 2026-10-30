@@ -27,3 +27,15 @@ FZF_CTRL_T_COMMAND='fd --hidden --follow'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH=${HOME}/.cargo/bin:${PATH}
+export PATH="$HOME/.local/bin:$PATH"
+
+# bun: prefer the userspace install; the pacman /usr/bin/bun (1.4.0-1) is
+# linked against GLIBC_2.44 and this system has 2.43, so it cannot run.
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun completions
+[ -s "/home/jordi/.bun/_bun" ] && source "/home/jordi/.bun/_bun"
+
+# OpenClaw Completion
+[ -f '/home/jordi/.openclaw/completions/openclaw.zsh' ] && source '/home/jordi/.openclaw/completions/openclaw.zsh'

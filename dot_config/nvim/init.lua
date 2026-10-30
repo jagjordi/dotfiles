@@ -111,3 +111,11 @@ end
 
 vim.keymap.set("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true, desc = "Open [G]it"})
 vim.keymap.set("n", "<leader>tr", "<cmd>lua _ranger_toggle()<CR>", {noremap = true, silent = true, desc = "Open [R]anger"})
+
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.j2",
+  callback = function()
+    vim.bo.filetype = "jinja"
+  end,
+})
