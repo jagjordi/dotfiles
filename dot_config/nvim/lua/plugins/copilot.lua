@@ -66,22 +66,12 @@ return {
         },
     },
     {
-      "jackMort/ChatGPT.nvim",
-      event = "VeryLazy",
-      config = function()
-        require("chatgpt").setup({
-          openai_params = {
-            model = "gpt-4o-mini",
-          },
-          api_key_cmd = "secret-tool lookup key openai_nvim",
-        })
-      end,
+      "olimorris/codecompanion.nvim",
+      opts = {},
       dependencies = {
-        "MunifTanjim/nui.nvim",
         "nvim-lua/plenary.nvim",
-        "folke/trouble.nvim", -- optional
-        "nvim-telescope/telescope.nvim"
-      }
-    }
+        "nvim-treesitter/nvim-treesitter",
+      },
+    },
 }
 

@@ -79,3 +79,6 @@ alias zbench='for i in {1..10}; do /usr/bin/time zsh -lic exit; done'
 alias zdot='cd ${ZDOTDIR:-~}'
 alias t=todo.sh
 alias activate='source .venv/bin/activate'
+alias monoff='hyprctl keyword monitor "eDP-1, disable"'
+alias monon='hyprctl keyword monitor "eDP-1,2256x1504,2560x0,1"'
+

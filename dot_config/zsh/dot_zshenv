@@ -22,7 +22,9 @@ fi
 # `ssh host 'openclaw ...'` and non-interactive callers resolve it too.
 #
 # typeset -U keeps `path` deduplicated, so nested shells re-prepending
-# this entry cannot grow PATH without bound.
+# these entries cannot grow PATH without bound.
 typeset -U path PATH
-path=("$HOME/.npm-global/bin" $path)
+path=("$HOME/.local/bin" "$HOME/.npm-global/bin" $path)
 export PATH
+
+export COLORTERM=truecolor

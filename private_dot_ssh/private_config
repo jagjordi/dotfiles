@@ -36,4 +36,6 @@ Host cloud-redhat
 Host office
     HostName s2746.ict.kth.se
     User jordi
+    ForwardX11 yes
+    ForwardX11Trusted yes
 
