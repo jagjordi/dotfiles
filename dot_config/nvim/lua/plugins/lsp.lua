@@ -4,13 +4,11 @@ return{
         "tamago324/nlsp-settings.nvim",
     },
     config = function()
-        local lspconfig = require("lspconfig")
-        local lspconfutil = require("lspconfig.util")
-        local configs = require("lspconfig.configs")
         local nlspsettings = require("nlspsettings")
         -- lspconfig.ltex.setup{}
         -- lspconfig.texlab.setup{}
-        lspconfig.svlangserver.setup {}
+        vim.lsp.config('svlangserver', {})
+        vim.lsp.enable('svlangserver')
         -- lspconfig.verible.setup {}
 
         -- lspconfig.veridian.setup {

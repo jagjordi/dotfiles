@@ -17,3 +17,8 @@ export MODULEPATH=${MODULEPATH}:~/.config/modules
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+export COLORTERM=truecolor
+
+# Add local bin to PATH
+export PATH="$HOME/.local/bin:$PATH"

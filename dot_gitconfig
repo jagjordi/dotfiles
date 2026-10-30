@@ -11,6 +11,9 @@
 	directory = /home/jordi/sshfs/feta/docker-images
 	directory = /home/jordi/sshfs/manchego/docker
 	directory = /home/jordi/sshfs/cloud-admin/ee/admin/docker
+	directory = /home/Jordi/sshfs/manchego/ee/admin/docker
 [core]
 	excludesFile = ~/.gitignore
 	editor = nvim
+[init]
+	defaultBranch = master
