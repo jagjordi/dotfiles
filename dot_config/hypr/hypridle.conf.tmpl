@@ -1,21 +1,24 @@
 general {
-    lock_cmd = notify-send "lock!"          # dbus/sysd lock command (loginctl lock-session)
-    unlock_cmd = notify-send "unlock!"      # same as above, but unlock
-    before_sleep_cmd = notify-send "Zzz"    # command ran before sleep
-    after_sleep_cmd = notify-send "Awake!"  # command ran after sleep
-    ignore_dbus_inhibit = false             # whether to ignore dbus-sent idle-inhibit requests (used by e.g. firefox or steam)
-    ignore_systemd_inhibit = false          # whether to ignore systemd-inhibit --what=idle inhibitors
+    lock_cmd = pidof hyprlock || hyprlock       # never start a second hyprlock
+    before_sleep_cmd = loginctl lock-session    # lock before suspend
+    after_sleep_cmd = ~/.config/hypr/dpms-on.sh # outputs back on after suspend (with retries)
+    ignore_dbus_inhibit = false                 # whether to ignore dbus-sent idle-inhibit requests (used by e.g. firefox or steam)
+    ignore_systemd_inhibit = false              # whether to ignore systemd-inhibit --what=idle inhibitors
 }
 
+# lock the session (runs lock_cmd above)
 listener {
     timeout = 300
-    on-timeout = hyprlock
+    on-timeout = loginctl lock-session
 }
 
+# screens off a bit later; on activity turn them back on.
+# dpms-on.sh re-asserts for a few seconds: the C2722DE USB-C monitor
+# re-enumerates after wake and the hotplug can leave the other output off.
 listener {
     timeout = 310
     on-timeout = hyprctl dispatch dpms off
-    on-resume = hyprctl dispatch dpms on
+    on-resume = ~/.config/hypr/dpms-on.sh
 }
 
 {{- if eq .machine_name "framework" }}

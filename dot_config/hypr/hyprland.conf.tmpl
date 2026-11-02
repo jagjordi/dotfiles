@@ -1,13 +1,14 @@
 {{- if eq .machine_name "framework" }}
 monitor=eDP-1,2256x1504,2560x0,1
 {{ else if eq .machine_name "office_desktop" }}
-monitor=DP-1,2560x1440,2560x0,1
-monitor=DP-2,2560x1440,0x0,1
+# match by description: connector names (DP-1/DP-2, later DP-4/DP-5) change with the dock
+monitor=desc:Dell Inc. DELL U2722DE BV9CQ83,2560x1440,0x0,1
+monitor=desc:Dell Inc. DELL C2722DE FM2N8P3,2560x1440,2560x0,1
 {{ end }}
 
 exec-once = swaync
 exec-once = hyprpaper
-exec-once = hypridle
+exec-once = systemctl --user start hypridle
 exec-once = waybar
 exec-once = hyprpm reload -n
 exec-once =   ~/.config/hypr/bitwarden.hypr.sh
