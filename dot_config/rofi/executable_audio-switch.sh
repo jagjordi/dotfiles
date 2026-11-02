@@ -61,7 +61,7 @@ main_menu() {
         row "$mark  $(esc <<<"$desc")  <span alpha='60%'>$vol</span>" "sink:$name" "$(icon_for "$name" sink)"
         ((idx++))
     done < <(pactl -f json list sinks | jq -r '.[] | select(.properties["node.virtual"] != "true")
-        | [.name, .description, (.volume["front-left"].value_percent // ""), (.mute|tostring)] | @tsv')
+        | [.name, .description, (([.volume[]][0].value_percent) // "-"), (.mute|tostring)] | @tsv')
 
     row "<b>Input</b>" "" "" nonselectable; ((idx++))
     while IFS=$'\t' read -r name desc vol mute; do
@@ -70,7 +70,7 @@ main_menu() {
         row "$mark  $(esc <<<"$desc")  <span alpha='60%'>$vol</span>" "source:$name" "$(icon_for "$name" source)"
         ((idx++))
     done < <(pactl -f json list sources | jq -r '.[] | select(.monitor_source == "" and .properties["node.virtual"] != "true")
-        | [.name, .description, (.volume["front-left"].value_percent // ""), (.mute|tostring)] | @tsv')
+        | [.name, .description, (([.volume[]][0].value_percent) // "-"), (.mute|tostring)] | @tsv')
 
     local mac bname connected first=1
     while IFS=$'\t' read -r mac bname connected; do
