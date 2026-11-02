@@ -13,7 +13,7 @@
 #   ROFI_CLAUDE_MODEL   model alias/id        (default: haiku)
 #   ROFI_CLAUDE_EFFORT  low|medium|high       (default: low)
 #   ROFI_CLAUDE_TOOLS   tools claude may use  (default: WebSearch,WebFetch; "" = none)
-#   ROFI_CLAUDE_WIDTH   wrap answer at N cols (default: 90)
+#   ROFI_CLAUDE_WIDTH   answer window width    (default: 55%)
 
 set -uo pipefail
 
@@ -23,10 +23,15 @@ export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
 MODEL="${ROFI_CLAUDE_MODEL:-haiku}"
 EFFORT="${ROFI_CLAUDE_EFFORT:-low}"
 TOOLS="${ROFI_CLAUDE_TOOLS-WebSearch,WebFetch}"
-WIDTH="${ROFI_CLAUDE_WIDTH:-90}"
+WIDTH="${ROFI_CLAUDE_WIDTH:-55%}"
 TIMEOUT="${ROFI_CLAUDE_TIMEOUT:-180}"
 ROFI="${ROFI_CMD:-rofi}"
 TERMINAL="${TERMINAL:-kitty}"
+
+# Show every popup on the monitor that was focused when we started (the answer
+# arrives later, when focus may have moved). Falls back to the mouse's monitor.
+MONITOR=$(hyprctl monitors -j 2>/dev/null | jq -r '.[] | select(.focused) | .name' 2>/dev/null)
+ROFI_ARGS=(-m "${MONITOR:--3}")
 
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/rofi-claude"
 HISTORY="$STATE_DIR/history"   # previous questions, newest first
@@ -40,10 +45,10 @@ Reply in plain text only: no markdown, no headings, no bullet markers, no code f
 Be brief and direct; a few sentences at most unless more is clearly needed. \
 If a command or snippet is the answer, put it on its own line."
 
-ACT_COPY="󰆏  Copy answer"
-ACT_FOLLOW="  Follow-up"
-ACT_TERM="  Continue in terminal"
-ACT_NEW="  New question"
+ACT_COPY="Copy answer"
+ACT_FOLLOW="Follow-up"
+ACT_TERM="Continue in terminal"
+ACT_NEW="New question"
 
 pango_escape() { sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g'; }
 
@@ -59,7 +64,7 @@ copy() {
 # ask_question [prompt] -> prints the question, empty if cancelled
 ask_question() {
     local prompt="${1:-Ask Claude}"
-    head -n 20 "$HISTORY" | "$ROFI" -dmenu -i -p "$prompt" -l 8 \
+    head -n 20 "$HISTORY" | "$ROFI" "${ROFI_ARGS[@]}" -dmenu -i -p "$prompt" -l 8 \
         -theme-str 'window { width: 50%; }' \
         -mesg "<i>Type a question, or pick a recent one</i>"
 }
@@ -98,15 +103,19 @@ ask_claude() {
     printf '%s' "$answer"
 }
 
-# show_answer <question> <answer> -> prints the selected row
+# show_answer <question> <answer> -> prints the selected action
 show_answer() {
     local question="$1" answer="$2"
-    {
-        printf '%s\n%s\n%s\n%s\n' "$ACT_COPY" "$ACT_FOLLOW" "$ACT_TERM" "$ACT_NEW"
-        printf '%s\n' "$answer" | fold -s -w "$WIDTH"
-    } | "$ROFI" -dmenu -i -no-custom -p "Claude" -l 18 \
-        -theme-str 'window { width: 60%; } listview { dynamic: true; }' \
-        -mesg "<b>$(printf '%s' "$question" | pango_escape)</b>"
+    printf '%s\n%s\n%s\n%s\n' "$ACT_COPY" "$ACT_FOLLOW" "$ACT_TERM" "$ACT_NEW" \
+    | "$ROFI" "${ROFI_ARGS[@]}" -dmenu -i -no-custom -p "Claude" -l 4 \
+        -theme-str "window { width: ${WIDTH}; height: 0px; }
+                    mainbox { children: [message, listview]; }
+                    message { padding: 8px 16px 0px 0px; }
+                    textbox { wrap: true; }
+                    listview { columns: 1; lines: 4; fixed-height: false; padding: 10px 0px 20px 0px; }" \
+        -mesg "<b>$(printf '%s' "$question" | pango_escape)</b>
+
+$(printf '%s' "$answer" | pango_escape)"
 }
 
 main() {
@@ -130,10 +139,9 @@ main() {
             "$ACT_NEW")    resume=0; session=$(cat /proc/sys/kernel/random/uuid)
                            question=$(ask_question)
                            [[ -z "$question" ]] && exit 0 ;;
-            "")            exit 0 ;;
-            *)             copy "$choice"; exit 0 ;;   # an answer line: copy just that line
+            *)             exit 0 ;;
         esac
     done
 }
 
-main "$@"
+[[ "${BASH_SOURCE[0]:-}" == "$0" ]] && main "$@"
