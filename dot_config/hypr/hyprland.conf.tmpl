@@ -12,6 +12,7 @@ exec-once = waybar
 exec-once = hyprpm reload -n
 exec-once =   ~/.config/hypr/bitwarden.hypr.sh
 
+exec-once = playerctld daemon
 exec-once = wl-paste --type text --watch cliphist store
 exec-once = wl-paste --type image --watch cliphist store
 
@@ -163,12 +164,18 @@ bind = $mainMod, F2, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
 bind = CONTROLALT, j, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
 bind = $mainMod, F1, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle
 bind = CONTROLALT, m, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle
-bind = ,XF86AudioPlay, exec, playerctl --player=ncspot play-pause
-bind = ,XF86AudioNext, exec, playerctl --player=ncspot next
-bind = ,XF86AudioPrev, exec, playerctl --player=ncspot previous
-bind = ,XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%
-bind = ,XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
-bind = ,XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle
+# Media keys (keyboard, Bluetooth headset AVRCP buttons, ...). playerctld
+# (exec-once above) makes playerctl target the most recently active player.
+# bindl: also works while locked; bindel: repeats while held.
+bindl = ,XF86AudioPlay, exec, playerctl play-pause
+bindl = ,XF86AudioPause, exec, playerctl play-pause
+bindl = ,XF86AudioStop, exec, playerctl stop
+bindl = ,XF86AudioNext, exec, playerctl next
+bindl = ,XF86AudioPrev, exec, playerctl previous
+bindel = ,XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindel = ,XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindl = ,XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindl = ,XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 
 # brighness controls
