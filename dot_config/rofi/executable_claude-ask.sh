@@ -17,6 +17,9 @@
 
 set -uo pipefail
 
+# Hyprland/rofi launch with a minimal PATH; claude lives in ~/.local/bin
+export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
+
 MODEL="${ROFI_CLAUDE_MODEL:-haiku}"
 EFFORT="${ROFI_CLAUDE_EFFORT:-low}"
 TOOLS="${ROFI_CLAUDE_TOOLS-WebSearch,WebFetch}"
