@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Ask Claude
+Comment=Quick question to Claude Code via rofi
+Exec=/home/jordi/.config/rofi/claude-ask.sh
+Icon=dialog-question
+Terminal=false
+Categories=Utility;
+Keywords=claude;ai;chat;ask;
