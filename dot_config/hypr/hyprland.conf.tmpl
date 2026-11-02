@@ -32,7 +32,9 @@ input {
     kb_layout = us,us
     kb_variant = basic,intl
     kb_model = pc105,pc105
-    kb_options = grp:alt_shift_toggle
+    # layout toggle is done with the Alt+Shift binds below (switchxkblayout);
+    # the xkb grp:alt_shift_toggle option is unreliable under Hyprland
+    kb_options =
 
     follow_mouse = 1
 
@@ -141,6 +143,9 @@ bind = $mainMod SHIFT, W, exec, rofi -modi 'WireGuard:~/.config/rofi/wireguard-r
 bind = $mainMod SHIFT, N, exec, sh ~/.config/rofi/network-manager/rofi-network-manager.sh
 bind = $mainMod, A, exec, ~/.config/rofi/claude-ask.sh
 bind = $mainMod SHIFT, A, exec, ~/.config/rofi/audio-switch.sh --show
+# keyboard layout toggle: Alt+Shift in either press order
+bind = ALT, Shift_L, exec, hyprctl switchxkblayout all next
+bind = SHIFT, Alt_L, exec, hyprctl switchxkblayout all next
 bind = $mainMod SHIFT, D, exec, swaync-client -t -sw
 bind = $mainMod SHIFT, F, fullscreen
 

@@ -7,7 +7,7 @@
     // Choose the order of the modules
     "modules-left": ["hyprland/workspaces", "custom/pacman", "custom/email", "custom/spotify", "hyprland/submap"],
     "modules-center": ["clock", "custom/weather", "custom/pomodoro"],
-    "modules-right": ["pulseaudio", "custom/mem", "backlight", "battery"],
+    "modules-right": ["hyprland/language", "pulseaudio", "custom/mem", "backlight", "battery"],
 
 
     //***************************
@@ -24,10 +24,12 @@
 		"5": "",
 	},
     },
-    "sway/language": {
-        "format": "{} ",
-	"min-length": 5,
-	"tooltip": false
+    "hyprland/language": {
+        "format": "  {}",
+        "format-en": "US",
+        "keyboard-name": "keychron-k8-pro-keyboard",
+        "on-click": "hyprctl switchxkblayout all next",
+        "tooltip": false
     },
 
     "keyboard-state": {
