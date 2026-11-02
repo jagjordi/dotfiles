@@ -162,6 +162,7 @@ bind = CONTROLALT, k, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%
 bind = $mainMod, F2, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
 bind = CONTROLALT, j, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
 bind = $mainMod, F1, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle
+bind = CONTROLALT, m, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle
 bind = ,XF86AudioPlay, exec, playerctl --player=ncspot play-pause
 bind = ,XF86AudioNext, exec, playerctl --player=ncspot next
 bind = ,XF86AudioPrev, exec, playerctl --player=ncspot previous
