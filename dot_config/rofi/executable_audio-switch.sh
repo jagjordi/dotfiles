@@ -7,7 +7,9 @@
 #
 # Lists outputs (sinks) and inputs (sources) with the active one marked.
 # Picking one makes it the default and moves every playing/recording stream
-# to it. "Card profiles" opens a second level to switch a card's profile
+# to it. Paired Bluetooth audio devices (headphones, earbuds) get a connect
+# row: connecting waits for the PipeWire sink and makes it the default output.
+# "Card profiles" opens a second level to switch a card's profile
 # (e.g. analog <-> HDMI), after which the device list is shown again.
 #
 # Rofi script-mode protocol: rows are printed to stdout; on selection the
@@ -70,9 +72,62 @@ main_menu() {
     done < <(pactl -f json list sources | jq -r '.[] | select(.monitor_source == "" and .properties["node.virtual"] != "true")
         | [.name, .description, (.volume["front-left"].value_percent // ""), (.mute|tostring)] | @tsv')
 
+    local mac bname connected first=1
+    while IFS=$'\t' read -r mac bname connected; do
+        if ((first)); then row "<b>Bluetooth</b>" "" "" nonselectable; ((idx++)); first=0; fi
+        if [[ "$connected" == yes ]]; then
+            row "$ON  Disconnect $(esc <<<"$bname")" "btdisconnect:$mac" "audio-headset"; active+=("$idx")
+        else
+            row "$OFF  Connect $(esc <<<"$bname")" "btconnect:$mac" "audio-headset"
+        fi
+        ((idx++))
+    done < <(bt_audio_devices)
+
     row "" "" "" nonselectable; ((idx++))
     row "Card profiles…" "profiles" "preferences-system"
     if ((${#active[@]})); then printf '\0active\x1f%s\n' "$(IFS=,; echo "${active[*]}")"; fi
+}
+
+# paired Bluetooth devices with an audio sink profile: "MAC<tab>name<tab>yes|no"
+bt_audio_devices() {
+    command -v bluetoothctl >/dev/null || return 0
+    local mac name info
+    while read -r _ mac name; do
+        info=$(bluetoothctl info "$mac" 2>/dev/null) || continue
+        grep -q 'UUID: Audio Sink' <<<"$info" || continue
+        printf '%s\t%s\t%s\n' "$mac" "$name" "$(grep -q 'Connected: yes' <<<"$info" && echo yes || echo no)"
+    done < <(bluetoothctl devices Paired 2>/dev/null)
+}
+
+bt_connect() {
+    local mac="$1" name sink i
+    name=$(bluetoothctl info "$mac" 2>/dev/null | sed -n 's/^\s*Name: //p')
+    notify -t 15000 "Connecting $name…"
+    if ! timeout 20 bluetoothctl connect "$mac" >/dev/null 2>&1; then
+        notify -u critical "Could not connect $name" "Is it turned on and in range?"
+        return 1
+    fi
+    # wait for PipeWire to expose the sink (bluez_output.<MAC with _>.*)
+    for i in $(seq 1 40); do
+        sink=$(pactl list short sinks | awk -v m="bluez_output.${mac//:/_}" 'index($2, m) == 1 {print $2; exit}')
+        [[ -n "$sink" ]] && break
+        sleep 0.25
+    done
+    if [[ -z "$sink" ]]; then
+        notify -u critical "$name connected" "but no audio sink appeared"
+        return 1
+    fi
+    set_sink "$sink"
+}
+
+bt_disconnect() {
+    local mac="$1" name
+    name=$(bluetoothctl info "$mac" 2>/dev/null | sed -n 's/^\s*Name: //p')
+    if timeout 10 bluetoothctl disconnect "$mac" >/dev/null 2>&1; then
+        notify "Disconnected $name"
+    else
+        notify -u critical "Could not disconnect $name"
+    fi
 }
 
 profiles_menu() {
@@ -122,6 +177,8 @@ case "${ROFI_INFO:-}" in
     "")          main_menu ;;                       # first call, or a header row
     sink:*)      set_sink "${ROFI_INFO#sink:}" ;;
     source:*)    set_source "${ROFI_INFO#source:}" ;;
+    btconnect:*)    bt_connect "${ROFI_INFO#btconnect:}" ;;
+    btdisconnect:*) bt_disconnect "${ROFI_INFO#btdisconnect:}" ;;
     profiles)    profiles_menu ;;
     profile\|*)  IFS='|' read -r _ card profile <<<"$ROFI_INFO"; set_profile "$card" "$profile"; main_menu ;;
     back)        main_menu ;;
