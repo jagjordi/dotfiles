@@ -2,6 +2,7 @@
 #
 # audio-switch.sh - rofi menu to switch PipeWire audio devices.
 #
+#   audio-switch.sh --show      open the menu (wraps the rofi call below)
 #   rofi -modi 'Audio:~/.config/rofi/audio-switch.sh' -show Audio
 #
 # Lists outputs (sinks) and inputs (sources) with the active one marked.
@@ -14,6 +15,12 @@
 
 set -uo pipefail
 export PATH="$HOME/.local/bin:$PATH"
+
+# --show: launch rofi on ourselves with a single-column layout
+if [[ "${1:-}" == "--show" ]]; then
+    exec rofi -modi "Audio:$(readlink -f "$0")" -show Audio -selected-row 1 \
+        -theme-str 'window { width: 34%; height: 0px; } listview { columns: 1; lines: 12; fixed-height: false; }'
+fi
 
 ON="●"   # active device
 OFF="○"
