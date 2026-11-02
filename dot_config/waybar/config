@@ -25,8 +25,7 @@
 	},
     },
     "hyprland/language": {
-        "format": "  {}",
-        "format-en": "US",
+        "format": "  {short} {variant}",
         "keyboard-name": "keychron-k8-pro-keyboard",
         "on-click": "hyprctl switchxkblayout all next",
         "tooltip": false
