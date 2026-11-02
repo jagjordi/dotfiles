@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Audio Device
+Comment=Switch audio output/input device
+Exec=rofi -modi "Audio:/home/jordi/.config/rofi/audio-switch.sh" -show Audio
+Icon=audio-speakers
+Terminal=false
+Categories=AudioVideo;Settings;
+Keywords=audio;sound;output;speaker;headphones;microphone;
